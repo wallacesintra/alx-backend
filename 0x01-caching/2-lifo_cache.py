@@ -32,9 +32,10 @@ class LIFOCache(BaseCaching):
         if key is None or item is None:
             return
 
-        if len(self.cache_data) > self.MAX_ITEMS:
-            last_key, _ = self.cache_data.popitem(True)
-            print(f"DISCARD: {last_key}")
+        if key not in self.cache_data:
+            if len(self.cache_data) > self.MAX_ITEMS:
+                last_key, _ = self.cache_data.popitem(True)
+                print(f"DISCARD: {last_key}")
         self.cache_data[key] = item
         self.cache_data.move_to_end(key=key, last=True)
 
