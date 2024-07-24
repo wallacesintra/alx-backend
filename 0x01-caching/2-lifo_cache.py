@@ -17,34 +17,24 @@ class LIFOCache(BaseCaching):
     """
 
     def __init__(self):
-        """
-        instantiate class
+        """Initializes the cache.
         """
         super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
+        """Adds an item in the cache.
         """
-        assign to the dictionary self.cache_data
-        the item value for the key key
-        """
-
         if key is None or item is None:
             return
-
         if key not in self.cache_data:
-            if len(self.cache_data) > self.MAX_ITEMS:
+            if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
                 last_key, _ = self.cache_data.popitem(True)
-                print(f"DISCARD: {last_key}")
+                print("DISCARD:", last_key)
         self.cache_data[key] = item
-        self.cache_data.move_to_end(key=key, last=True)
+        self.cache_data.move_to_end(key, last=True)
 
     def get(self, key):
+        """Retrieves an item by key.
         """
-        return the value in self.cache_data linked to key.
-        """
-
-        if key is None:
-            return
-
-        return self.cache_data.get(key)
+        return self.cache_data.get(key, None)
