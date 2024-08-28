@@ -29,7 +29,6 @@ const getCurrentAvailableSeats = async () => {
 
 app.get('/available_seats', (_, res) => {
   getCurrentAvailableSeats()
-    // .then(result => Number.parseInt(result || 0))
     .then((numberOfAvailableSeats) => {
       res.json({ numberOfAvailableSeats })
     });
